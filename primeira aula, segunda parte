@@ -1,0 +1,26 @@
+#include <stdio.h>
+
+void main(){
+
+int vetororiginal [10];
+int vetorinvertido [10];
+int i = 0;
+//limpeza de memória
+    for ( i =0; i <10;i++){
+        vetororiginal[i] = 0;
+        vetorinvertido[i] = 0;
+// preenchimento de vetor
+    printf("Digite os valores que estao na lista: ");
+    scanf("%d", &vetororiginal[i]);
+    }
+//inverter vetor
+    for (i = 9; i>=0;i--){
+        vetorinvertido[9 - i] = vetororiginal[i];
+    }
+    for ( i =0; i <10;i++){
+        printf("vetororiginal[%d] = %d\n",i,vetororiginal[i]);
+    }
+    for ( i =0; i <10;i++){
+        printf("vetorinvertido[%d] = %d\n",i,vetorinvertido[i]);
+}
+}
