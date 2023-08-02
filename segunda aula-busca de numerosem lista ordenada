@@ -1,0 +1,46 @@
+#include <stdio.h>
+
+int vetor [10000];
+int busca = 0;
+int i=0;
+int  inicio = 0;
+int  fim = 0;
+int  meio = 0;
+//int x =0;
+
+void main(){
+    // iniciialização da memoria
+   // while (x != 'n'){
+    for (i=0;i<10000;i++){
+        (vetor[i] = i);
+    }
+    // pergunta
+    printf("Qual valor que quer pesquisar");
+    scanf("%d", &busca);
+    //busca
+    inicio = 0;
+    fim = 9999;
+    while(fim >= inicio){
+        meio = ((inicio + fim)/2);
+
+        if(busca == vetor[meio]){
+            printf("Achei %d\n na posição %d\n", busca, meio);
+            return 0;
+        }else if ( busca > vetor[meio]){
+        inicio = (meio +1);}
+        else{
+            fim = (meio - 1);
+        }
+    }
+    printf("Nao existe");
+
+      //  printf("Deseja continuar? ");
+       // scanf("%d", &x);
+       // if(x == 'n'){
+        //    break;
+       // }else{
+       // continue;}
+    //}
+
+    // ordenação propriamente dita
+}
