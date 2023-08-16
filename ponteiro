@@ -1,0 +1,109 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+
+//estrutura do nó
+struct no{
+    int numero;
+    struct no *proximo;
+};
+
+//declaração de variaveis
+struct no *cabeca = NULL;
+
+//função que insere o no na lista
+
+void inserir(int numero){
+    //alocação do espaço de memoria
+    struct no *novoNo = (struct no *) malloc(sizeof(struct no));
+    novoNo -> numero = numero;
+    novoNo -> proximo = NULL;
+
+    if (cabeca == NULL){
+        //lista esta vazia
+        cabeca = novoNo;
+    } else{
+         //caso dificil: cabeca n esta vazia
+         struct no *ponteiro = cabeca;
+
+         while(ponteiro -> proximo != NULL){
+            ponteiro = ponteiro -> proximo;
+         }
+         ponteiro -> proximo = novoNo;
+    }
+}
+
+void imprimir(){
+    printf("==============\n");
+
+    struct no *ponteiro = cabeca;
+    while (ponteiro != NULL){
+        printf("%d\n", ponteiro -> numero);
+        ponteiro = ponteiro -> proximo;
+    }
+}
+
+void remover(int numero){
+    if (cabeca != NULL){
+        if (cabeca -> numero == numero){
+            struct no *ponteiroexcluir = cabeca;
+            cabeca = cabeca -> proximo;
+            free (ponteiroexcluir);
+
+        }else{
+            struct no *ponteiroanterior = cabeca;
+
+            while ((ponteiroanterior -> proximo != NULL)&& (ponteiroanterior -> proximo -> numero != numero)){
+                ponteiroanterior = ponteiroanterior -> proximo;
+            }
+            if (ponteiroanterior -> proximo != NULL){
+                struct no * ponteiroexcluir = ponteiroanterior -> proximo;
+                ponteiroanterior -> proximo = ponteiroexcluir -> proximo;
+                free(ponteiroexcluir);
+            }
+        }
+    }
+
+
+}
+void main(int argc, char * argv[]){
+    int opcao = 0;
+    int numero = 0;
+    while (opcao != 4){
+        printf("+================+\n");
+        printf("| Menu de opçoes |\n");
+        printf("+================+\n");
+        printf("1- INSERIR\n");
+        printf("2- REMOVER\n");
+        printf("3- IMPRIMIR\n");
+        printf("4- SAIR\n");
+        printf("+================+\n");
+        printf("Digite opcoes: ");
+        scanf("%d", &opcao);
+
+        switch (opcao){
+            case 1:
+                printf("Digite um numero: ");
+                scanf("%d", &numero);
+                inserir(numero);
+                break;
+
+            case 2:
+                printf("Digite um numero: ");
+                scanf("%d", &numero);
+                remover(numero);
+                break;
+
+            case 3:
+               imprimir();
+                break;
+
+
+
+        }
+    }
+
+}
+
+
