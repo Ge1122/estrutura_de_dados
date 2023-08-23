@@ -1,0 +1,103 @@
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//lista de dupla encadeamento
+struct no{
+int numero;
+struct no * anterior;
+struct no * proximo;
+};
+
+struct no * cabeca = NULL;
+//funç~çao que insere um no na lista
+void inserir(int numero){
+//alocacao da memoria
+struct no * novoNo = (struct no *) malloc(sizeof(struct no));
+novoNo -> numero = numero;
+novoNo -> anterior = NULL;
+novoNo -> proximo = NULL;
+
+if (cabeca == NULL){
+    //caso facil: lista vazia
+    cabeca = novoNo;
+    }else{
+    //caso dificil
+    struct no *ponteiro = cabeca;
+    //procura o ultimo no da lista
+    while(ponteiro -> proximo != NULL){
+        ponteiro = ponteiro -> proximo;
+    }
+    //executa os apontamentos
+    ponteiro -> proximo = novoNo;
+    novoNo -> anterior = ponteiro;
+    }
+}
+void imprimir(){
+    struct no *ponteiro = cabeca;
+
+    while(ponteiro != NULL){
+        printf("%d\n", ponteiro -> numero);
+        ponteiro = ponteiro -> proximo;
+    }
+    printf("=================\n");
+}
+// funcao que remove um no da lista
+void remover(int numero){
+            struct no *ponteiro = cabeca;
+            while(ponteiro != NULL){
+                    if (ponteiro -> numero == numero){//força a exclusao
+                            if(ponteiro -> anterior == NULL){
+                                //exclui o primeiro no da lista
+                                cabeca = cabeca -> proximo;
+                                if(cabeca != NULL){
+                                    cabeca -> anterior = NULL;
+                                }
+                                free(ponteiro);
+                                ponteiro = cabeca;
+
+                            }else if (ponteiro -> proximo == NULL){
+                                //exclui o ultimo no da lista
+                                struct no *temp = ponteiro;
+                                ponteiro = ponteiro -> anterior;
+                                ponteiro -> proximo = NULL;
+                                free(temp);
+                            }else{
+                                // exclui um no no meio da lista
+                                struct no *temp = ponteiro;
+                                ponteiro = ponteiro -> anterior;
+                                temp -> anterior -> proximo = temp -> proximo;
+                                temp -> proximo -> anterior = temp -> anterior;
+                                free(temp);
+
+                            }
+
+                    }
+                if (ponteiro != NULL){
+                    ponteiro = ponteiro -> anterior;
+                }
+
+            }
+
+    }
+void main(){
+
+  imprimir();
+  inserir(1);
+  remover(1);
+  imprimir();
+
+  inserir(1);
+  inserir(2);
+  inserir(3);
+  inserir(4);
+  imprimir();
+  remover(1);
+  remover(2);
+  remover(3);
+  remover(4);
+  imprimir();
+
+
+}
