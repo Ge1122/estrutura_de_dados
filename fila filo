@@ -1,0 +1,86 @@
+//////////////////////////////////////////////////////////////
+// programa que implementa uma fila FIFO(First in First out)//
+/////////////////////////////////////////////////////////////
+#include <stdio.h>
+#include <stdlib.h>
+
+///////////////////////
+// Declaração do nó //
+/////////////////////
+
+struct no{
+int numero;
+struct no *proximo;
+};
+
+//////////////////////////////
+// Declaração de variaveis //
+/////////////////////////////
+
+struct no *cabeca = NULL;
+
+/////////////////////////////////////
+// Função que inseri o nó na fila //
+////////////////////////////////////
+
+void inserir(int numero){
+struct no *novoNo = (struct no *) malloc(sizeof(struct no));
+novoNo -> numero = numero;
+novoNo -> proximo = cabeca;
+cabeca = novoNo;
+}
+
+/////////////////////////////////////
+// Função que Remove um no da fila//
+////////////////////////////////////
+
+int remover(){
+    int retorno = -1;
+
+    if (cabeca != NULL){
+            retorno = cabeca -> numero;
+            struct no *ponteiro = cabeca;
+            cabeca = cabeca ->proximo;
+            free(ponteiro);
+    }
+
+  return retorno;
+
+}
+
+//////////////////////////////////////////////
+// Função principal de execução do programa//
+/////////////////////////////////////////////
+
+int main(){
+    int opcao = 0;
+    int numero = 0;
+    while(opcao != 3){
+         printf("+===============+\n");
+        printf("| Menu de opçoes |\n");
+        printf("+================+\n");
+        printf("1- | INSERIR     |\n");
+        printf("2- | REMOVER     |\n");
+        printf("3- |   SAIR      |\n");
+        printf("+================+\n");
+        printf("Digite opcoes: ");
+        scanf("%d", &opcao);
+
+        switch (opcao){
+            case 1:
+                printf("Digite um numero: ");
+                scanf("%d", &numero);
+                inserir(numero);
+                break;
+
+            case 2:
+                printf("Removi o numero %d da fila\n ", remover());
+                break;
+
+
+        }
+    }
+
+}
+
+
