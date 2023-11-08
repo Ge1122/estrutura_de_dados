@@ -1,0 +1,72 @@
+# include <stdio.h>
+# include <stdlib.h>
+# include <time.h>
+/////////////////////////////////////////////////////////////
+//programa que implementa a ordençãp topologico de um grafo//
+/////////////////////////////////////////////////////////////
+
+//declaração do tamanho do grafo
+
+const int qtdvertices = 500;
+
+//função que cria o grafo
+
+void criar(int grafo[qtdvertices][qtdvertices], int aleatorio){
+    int i = 0;
+    int j = 0;
+    int conexao =0;
+
+    for(i=0;i<qtdvertices;i++){
+        for(j=0;j<qtdvertices;j++){
+            grafo[i][j] = 0;
+
+            if(aleatorio){
+                conexao = (rand()%2);
+            }else{
+                printf("Digite <1> se %d esta conectado com a %d: ", i,j);
+                scanf("%d", &conexao);
+            }
+            grafo[i][j] = conexao;
+        }
+    }
+}
+//funçao recursiva que ordena topologicamente o grafo
+
+void ordenartopologicorecursivo(int grafo[qtdvertices][qtdvertices],
+                              int visitado[qtdvertices],
+                              int vertice){
+
+ int i;
+ visitado[vertice] = 1;
+
+ for(i = 0; i<qtdvertices;i++){
+        if((grafo[vertice][i]) && (! visitado[i])){
+            ordenartopologicorecursivo(grafo, visitado, i);
+        }
+
+ }
+  printf("%d\t", vertice);
+}
+
+void ordenartopologico(int grafo[qtdvertices][qtdvertices]){
+    int vertice;
+    int visitado[qtdvertices];
+
+    for(vertice = 0; vertice < qtdvertices; vertice++){
+        if(! visitado[vertice]){
+            ordenartopologicorecursivo(grafo,visitado,vertice);
+        }
+    }
+printf("\n");
+}
+
+//função principla de execução do prpgrama
+
+int main(){
+    time_t t;
+    srand((unsigned) time(&t));
+    int grafo[qtdvertices][qtdvertices];
+    criar(grafo,1);
+    ordenartopologico(grafo);
+}
+
